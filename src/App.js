@@ -18,8 +18,8 @@ const App = () => {
     }, []);
 
     useEffect(() => {
-        console.log(coordinates, bounds)
-        getPlacesData()
+        console.log(bounds.ne, bounds.sw)
+        getPlacesData(bounds.sw, bounds.ne)
             .then((data) => {
                 console.log(data)
                 setPlaces(data)
