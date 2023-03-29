@@ -8,23 +8,27 @@ import Map from './components/Map/Map';
 
 const App = () => {
     const [places, setPlaces] = useState([]);
-    const [coordinates, setCoordinates] = useState({ lat:0, lng: 0});
-    const [bounds, setBounds] = useState(null);
+    const [coords, setCoords] = useState({});
+    const [bounds, setBounds] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        navigator.geolocation.getCurrentPosition(({ coords: {latitude, longitude}}) => {
-            setCoordinates({ lat: latitude, lng: longitude})
-        })
-    }, []);
+        navigator.geolocation.getCurrentPosition(({ coords: { latitude, longitude } }) => {
+          setCoords({ lat: latitude, lng: longitude });
+        });
+      }, []);
 
     useEffect(() => {
-        console.log(bounds.ne, bounds.sw)
-        getPlacesData(bounds.sw, bounds.ne)
+        if (bounds) {
+          setIsLoading(true);
+    
+          getPlacesData(bounds.sw, bounds.ne)
             .then((data) => {
-                console.log(data)
-                setPlaces(data)
-            })
-    }, [coordinates, bounds]);
+              setPlaces(data);
+              setIsLoading(false);
+            });
+        }
+    }, [bounds, coords]);
 
     return (
         <>
@@ -32,13 +36,16 @@ const App = () => {
             <Header />
             <Grid container spacing={3} style={{width:'100%'}}>
                 <Grid item xs={12} md={4}>
-                    <List places={places}/>
+                    <List 
+                    places={places}
+                    isLoading={isLoading}
+                    />
                 </Grid>
                 <Grid item xs={12} md={8}>
                     <Map
-                        setCoordinates={setCoordinates}
+                        setCoords={setCoords}
                         setBounds={setBounds}
-                        coordinates={coordinates}
+                        coords={coords}
                     />
                 </Grid>
             </Grid>
