@@ -37,8 +37,8 @@ const App = () => {
             <Grid container spacing={3} style={{width:'100%'}}>
                 <Grid item xs={12} md={4}>
                     <List 
-                    places={places}
-                    isLoading={isLoading}
+                        places={places}
+                        isLoading={isLoading}
                     />
                 </Grid>
                 <Grid item xs={12} md={8}>
@@ -46,6 +46,7 @@ const App = () => {
                         setCoords={setCoords}
                         setBounds={setBounds}
                         coords={coords}
+                        places={places}
                     />
                 </Grid>
             </Grid>
