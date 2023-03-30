@@ -1,20 +1,19 @@
-import React, { useState, useEffect, createRef } from 'react';
-import  { CircularProgress, Grid, Typography, InputLabel, MenuItem, FormControl, Select, Input, Card } from '@material-ui/core';
+// import { useState, useEffect, createRef } from 'react';
+import React from 'react';
+import  { CircularProgress, Grid, Typography, InputLabel, MenuItem, FormControl, Select } from '@material-ui/core';
 
 import PlaceDetails from '../PlaceDetails/PlaceDetails'
 
 import useStyles from './styles';
 
-
-
 const List = ({ places, isLoading, childClicked, type, setType, rating, setRating }) => {
     const classes = useStyles();
-    const [elRefs, setElRefs] = useState([]);
+    // const [elRefs, setElRefs] = useState([]);
 
-    useEffect(() => {
-        const refs = Array(places?.length).fill().map((_, i) => elRefs[i] || createRef());
-        setElRefs(refs);
-    }, [places])
+    // useEffect(() => {
+    //     const refs = Array(places?.length).fill().map((_, i) => elRefs[i] || createRef());
+    //     setElRefs(refs);
+    // }, [places])
 
     return (
         <div className={classes.container}>
@@ -50,7 +49,7 @@ const List = ({ places, isLoading, childClicked, type, setType, rating, setRatin
                             <PlaceDetails
                                 place={place}
                                 selected={Number(childClicked) === i}
-                                refProp={elRefs[i]}
+                                // refProp={elRefs[i]}
                             />
                         </Grid>
                     ))}
